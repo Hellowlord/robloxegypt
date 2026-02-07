@@ -1,299 +1,2274 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Adam Ahmed vs Adam Halawa in Drums</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROBLOX - Gaming Platform</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background: #191919;
+            color: white;
+        }
+        
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 70px;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            z-index: 1000;
+            border-bottom: 2px solid #333;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+        }
+        
+        .navbar-right { display: flex; align-items: center; gap: 20px; }
+        .user-profile { display: flex; align-items: center; gap: 10px; background: #2a2a2a; padding: 8px 15px; border-radius: 25px; cursor: pointer; }
+        .user-avatar { width: 35px; height: 35px; border-radius: 50%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; font-weight: 700; }
+        
+        /* Main Content */
+        .main-content { margin-top: 70px; padding: 40px; }
+        .hero { height: 400px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; display: flex; align-items: center; padding: 60px; margin-bottom: 40px; position: relative; overflow: hidden; }
+        .hero-content { z-index: 1; max-width: 50%; }
+        .hero h1 { font-size: 48px; margin-bottom: 20px; }
+        .hero-btn { background: white; color: #667eea; padding: 15px 40px; border: none; border-radius: 30px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 16px; }
+        .hero-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+        /* Game Grid */
+        .section-title { font-size: 32px; margin-bottom: 25px; }
+        .game-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-bottom: 50px; }
+        .game-card { background: #242424; border-radius: 15px; overflow: hidden; cursor: pointer; transition: 0.3s; }
+        .game-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3); }
+        .game-thumbnail { width: 100%; height: 180px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; font-size: 72px; }
+        .game-info { padding: 15px; }
+        .game-info b { font-size: 18px; display: block; margin-bottom: 5px; }
+        .game-info small { color: #aaa; }
+        
+        /* Special brainrot game styling */
+        .brainrot-card { border: 3px solid #ff0000; animation: brainrotPulse 2s infinite; }
+        .brainrot-card .game-thumbnail { background: linear-gradient(135deg, #ff0000 0%, #000000 100%) !important; }
+        @keyframes brainrotPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.8); }
+        }
 
-  <style>
-    :root{
-      --bg1:#0f1226;
-      --bg2:#1a1e3a;
-      --accent1:#8a5cff;
-      --accent2:#00e0ff;
-      --accent3:#ff4d8d;
-    }
-
-    * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; scroll-behavior: smooth; }
-    body {
-      background: linear-gradient(135deg, var(--bg1), var(--bg2));
-      color: #fff;
-      font-family: "Montserrat", sans-serif;
-      overflow-x: hidden;
-    }
-
-    /* Background stars */
-    .stars {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: transparent;
-      overflow: hidden;
-      z-index: -2;
-    }
-    .stars span {
-      position: absolute;
-      display: block;
-      width: 2px;
-      height: 2px;
-      background: white;
-      opacity: 0.8;
-      border-radius: 50%;
-      animation: twinkle 2s infinite ease-in-out alternate;
-    }
-    @keyframes twinkle {
-      from { opacity: 0.2; }
-      to   { opacity: 1; }
-    }
-
-    /* Glowing rotating squares */
-    .squares {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-    .squares div {
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      border: 3px solid rgba(255,255,255,0.15);
-      transform: rotate(45deg);
-      animation: floatSquare 20s linear infinite;
-    }
-    .squares div:nth-child(1) {
-      top: -50px; left: -50px;
-      animation-duration: 25s;
-    }
-    .squares div:nth-child(2) {
-      top: 200px; right: -80px;
-      animation-duration: 35s;
-    }
-    .squares div:nth-child(3) {
-      bottom: -100px; left: 40%;
-      animation-duration: 30s;
-    }
-    @keyframes floatSquare {
-      from { transform: rotate(0deg) translateY(0); }
-      to   { transform: rotate(360deg) translateY(-50px); }
-    }
-
-    .wrapper {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .card {
-      position: relative;
-      padding: 3.5rem 2.25rem;
-      border-radius: 28px;
-      background: rgba(255,255,255,0.04);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.07);
-      text-align: center;
-      max-width: 900px;
-      width: min(92vw, 900px);
-      margin: 3rem auto;
-    }
-
-    h1 {
-      margin: 0 0 .6rem 0;
-      font-family: "Playfair Display", serif;
-      font-weight: 900;
-      font-size: clamp(2.2rem, 6vw, 5rem);
-      line-height: 1.05;
-    }
-
-    .name {
-      display: block;
-      background: linear-gradient(270deg, var(--accent1), var(--accent2), var(--accent3), var(--accent1));
-      background-size: 600% 600%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin: 0.5rem 0;
-      animation: shine 6s linear infinite;
-    }
-    @keyframes shine {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .vs {
-      display: block;
-      font-weight: 700;
-      font-size: clamp(1.2rem, 3vw, 1.8rem);
-      letter-spacing: .35em;
-      text-transform: uppercase;
-      color: #e8ecff;
-      margin: 0.8rem 0;
-    }
-
-    p.tagline {
-      margin: 1.6rem 0 0;
-    }
-
-    .btn {
-      margin-top: 1rem;
-      padding: 0.9rem 1.8rem;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #fff;
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3));
-    }
-
-    .more-info {
-      padding: 3rem 2rem;
-      max-width: 800px;
-      margin: 0 auto 4rem;
-      text-align: center;
-      background: rgba(255,255,255,0.05);
-      border-radius: 20px;
-    }
-
-    .like-btn, .dislike-btn, .reset-btn {
-      margin: 0.5rem;
-      padding: 0.6rem 1.2rem;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    .like-btn {
-      background: linear-gradient(90deg, var(--accent2), var(--accent3));
-    }
-
-    .dislike-btn {
-      background: linear-gradient(90deg, #ff0000, #aa0000);
-    }
-
-    .reset-btn {
-      background: linear-gradient(90deg, #555, #222);
-    }
-  </style>
+        /* Canvas & UI */
+        #gameCanvas { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: 2000; }
+        .game-ui { position: fixed; top: 20px; left: 20px; z-index: 2001; display: none; }
+        .ui-panel { background: rgba(0,0,0,0.8); padding: 15px 25px; border-radius: 15px; display: flex; gap: 15px; font-size: 18px; font-weight: 600; }
+        .close-game-btn { position: fixed; top: 20px; right: 20px; background: #ff4444; border: none; padding: 12px 25px; border-radius: 25px; color: white; font-weight: 700; cursor: pointer; z-index: 2001; display: none; font-size: 16px; }
+        .close-game-btn:hover { background: #cc0000; }
+        
+        #deathScreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; flex-direction: column; z-index: 2500; }
+        .loading-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #191919; display: none; justify-content: center; align-items: center; flex-direction: column; z-index: 3000; }
+        .loading-spinner { width: 60px; height: 60px; border: 5px solid #333; border-top-color: #667eea; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        .loading-text { font-size: 20px; color: #667eea; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* Game instructions */
+        #gameInstructions {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 15px;
+            z-index: 2001;
+            display: none;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        /* Controller debug */
+        #controllerDebug {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: rgba(0,0,0,0.8);
+            color: lime;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 2001;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-  <!-- Background Effects -->
-  <div class="stars"></div>
-  <div class="squares">
-    <div></div><div></div><div></div>
-  </div>
 
-  <div class="wrapper">
-    <div class="card">
-      <h1>
-        <span class="name">Adam Ahmed</span>
-        <span class="vs">VS</span>
-        <span class="name">Adam Halawa</span>
-        <div class="vs">in Drums 🥁</div>
-      </h1>
-      <p class="tagline">A showdown in spectacular, shimmering style ✨</p>
-      <a href="#more-info"><button class="btn">More Info</button></a>
-    </div>
-  </div>
+    <nav class="navbar">
+        <div class="logo" onclick="showHome()">🎮 ROBLOX</div>
+        <div class="navbar-right">
+            <button class="hero-btn" onclick="openStudio()" style="padding: 10px 20px; margin-right: 20px; display: none;" id="studioBtn">🛠️ Studio</button>
+            <div class="user-stats" id="userStats" style="display: none;">💰 <span id="totalCoins">0</span> | 🏆 <span id="totalTrophies">0</span></div>
+            <div class="user-profile" id="userProfile" style="display: none;" onclick="showProfileMenu()">
+                <div class="user-avatar" id="userAvatar">P</div>
+                <span id="username">Player</span>
+            </div>
+            <button class="hero-btn" onclick="showAuth('login')" id="loginBtn" style="padding: 10px 20px; margin-right: 10px;">🔑 Login</button>
+            <button class="hero-btn" onclick="showAuth('signup')" id="signupBtn" style="padding: 10px 20px; background: #00aa00;">📝 Sign Up</button>
+        </div>
+    </nav>
 
-  <div id="more-info" class="more-info">
-    <h2>More Information</h2>
-    <p>
-      Adam Ahmed and Adam Halawa are seeing who is better in drums.  
-      Put a like on <strong>Adam Ahmed</strong> if you prefer him,  
-      but put a like on <strong>Adam Halawa</strong> if you prefer him.  
-      You can also dislike if you don’t prefer them.
-    </p>
-
-    <div>
-      <button class="like-btn" onclick="like('ahmed')">👍 Adam Ahmed (<span id="ahmedLikes">0</span>)</button>
-      <button class="dislike-btn" onclick="dislike('ahmed')">👎 (<span id="ahmedDislikes">0</span>)</button>
+    <!-- Profile Dropdown Menu -->
+    <div id="profileMenu" style="display: none; position: fixed; top: 70px; right: 20px; background: #222; border: 2px solid #667eea; border-radius: 10px; padding: 15px; z-index: 1001; min-width: 200px;">
+        <div style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #444;">
+            <div style="font-size: 18px; font-weight: bold;" id="menuUsername">Player</div>
+            <div style="font-size: 12px; color: #aaa;">Member</div>
+        </div>
+        <button onclick="viewMyGames()" style="width: 100%; padding: 10px; background: #333; border: none; color: white; border-radius: 5px; margin-bottom: 5px; cursor: pointer; text-align: left;">📚 My Games</button>
+        <button onclick="logout()" style="width: 100%; padding: 10px; background: #ff4444; border: none; color: white; border-radius: 5px; cursor: pointer; text-align: left;">🚪 Logout</button>
     </div>
 
-    <div>
-      <button class="like-btn" onclick="like('halawa')">👍 Adam Halawa (<span id="halawaLikes">0</span>)</button>
-      <button class="dislike-btn" onclick="dislike('halawa')">👎 (<span id="halawaDislikes">0</span>)</button>
+    <!-- Auth Modal -->
+    <div id="authModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center;">
+        <div style="background: #1a1a1a; padding: 40px; border-radius: 20px; max-width: 450px; width: 90%; border: 2px solid #667eea;">
+            <h2 id="authTitle" style="margin-bottom: 30px; font-size: 32px;">🔑 Login</h2>
+            
+            <div id="authForm">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; color: #aaa;">Username</label>
+                    <input type="text" id="authUsername" placeholder="Enter username" style="width: 100%; padding: 15px; border-radius: 10px; border: 2px solid #333; background: #222; color: white; font-size: 16px;">
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; color: #aaa;">Password</label>
+                    <input type="password" id="authPassword" placeholder="Enter password" style="width: 100%; padding: 15px; border-radius: 10px; border: 2px solid #333; background: #222; color: white; font-size: 16px;">
+                </div>
+
+                <div id="signupFields" style="display: none;">
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; margin-bottom: 8px; color: #aaa;">Email (optional)</label>
+                        <input type="email" id="authEmail" placeholder="your@email.com" style="width: 100%; padding: 15px; border-radius: 10px; border: 2px solid #333; background: #222; color: white; font-size: 16px;">
+                    </div>
+                </div>
+
+                <button id="authSubmitBtn" onclick="submitAuth()" class="hero-btn" style="width: 100%; padding: 15px; font-size: 18px; margin-bottom: 15px;">Continue</button>
+                
+                <div style="text-align: center; color: #aaa; font-size: 14px;">
+                    <span id="authSwitchText">Don't have an account?</span>
+                    <a href="#" id="authSwitchLink" onclick="toggleAuthMode(); return false;" style="color: #667eea; text-decoration: none; font-weight: bold;"> Sign Up</a>
+                </div>
+                
+                <button onclick="closeAuth()" style="width: 100%; padding: 10px; background: #444; border: none; color: white; border-radius: 5px; cursor: pointer; margin-top: 15px;">Cancel</button>
+            </div>
+        </div>
     </div>
 
-    <div>
-      <button class="reset-btn" onclick="resetVotes()">🔄 Reset</button>
+    <div class="main-content" id="mainContent">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Welcome to ROBLOX</h1>
+                <p style="font-size: 18px; margin-bottom: 20px;">Discover adventure and unleash your imagination!</p>
+                <button class="hero-btn" onclick="document.getElementById('allGames').scrollIntoView({behavior:'smooth'})">Start Playing</button>
+            </div>
+        </div>
+        
+        <!-- Popular Section -->
+        <div class="section" style="margin-bottom: 50px;">
+            <h2 class="section-title">🔥 Popular</h2>
+            <div class="game-grid" id="popularGames"></div>
+        </div>
+        
+        <!-- All Games Section -->
+        <div class="section">
+            <h2 class="section-title">🎮 All Games</h2>
+            <div class="game-grid" id="allGames"></div>
+        </div>
     </div>
-  </div>
 
-  <script>
-    // Generate stars dynamically
-    const stars = document.querySelector('.stars');
-    for(let i=0; i<80; i++){
-      const star = document.createElement('span');
-      star.style.top = Math.random() * 100 + "%";
-      star.style.left = Math.random() * 100 + "%";
-      star.style.animationDuration = (Math.random() * 2 + 1) + "s";
-      stars.appendChild(star);
-    }
+    <canvas id="gameCanvas"></canvas>
+    <div class="game-ui" id="gameUI">
+        <div class="ui-panel">
+            <span>🪙 <span id="coinCount">0</span></span>
+            <span>❤️ <span id="livesCount">3</span></span>
+        </div>
+    </div>
+    <button class="close-game-btn" id="closeGameBtn" onclick="closeGame()">✕ Exit Game</button>
 
-    // Default votes
-    let defaultVotes = {
-      ahmedLikes: 1,
-      ahmedDislikes: 0,
-      halawaLikes: 1,
-      halawaDislikes: 0
-    };
+    <div id="deathScreen">
+        <h2 style="color:red; font-size:48px; margin-bottom: 20px;">💀 YOU DIED!</h2>
+        <button class="hero-btn" onclick="respawnPlayer()">Respawn</button>
+    </div>
 
-    function loadVotes() {
-      let votes = JSON.parse(localStorage.getItem('votes')) || defaultVotes;
-      document.getElementById('ahmedLikes').innerText = votes.ahmedLikes;
-      document.getElementById('ahmedDislikes').innerText = votes.ahmedDislikes;
-      document.getElementById('halawaLikes').innerText = votes.halawaLikes;
-      document.getElementById('halawaDislikes').innerText = votes.halawaDislikes;
-      return votes;
-    }
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading Game...</div>
+    </div>
+    
+    <div id="gameInstructions">
+        Press <strong>E</strong> to interact • WASD to move • Mouse to look
+    </div>
+    
+    <div id="controllerDebug">
+        🎮 Controller Debug<br>
+        Status: <span id="debugStatus">Not Connected</span><br>
+        Left Stick: <span id="debugLeftStick">0.00, 0.00</span><br>
+        Right Stick: <span id="debugRightStick">0.00, 0.00</span><br>
+        Buttons: <span id="debugButtons">None</span>
+    </div>
 
-    let votes = loadVotes();
+    <!-- Game Studio Modal -->
+    <div id="studioModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 4000; overflow-y: auto;">
+        <div style="max-width: 900px; margin: 50px auto; padding: 40px; background: #242424; border-radius: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <h1 style="font-size: 36px;">🛠️ Game Studio</h1>
+                <button class="hero-btn" onclick="closeStudio()" style="background: #ff4444; color: white;">✕ Close</button>
+            </div>
+            
+            <div style="background: #191919; padding: 30px; border-radius: 15px; margin-bottom: 20px;">
+                <h2 style="margin-bottom: 20px;">Create Your Game</h2>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Game Name:</label>
+                    <input type="text" id="gameName" placeholder="Enter game name..." style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #333; background: #2a2a2a; color: white; font-size: 16px;">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Emoji Icon:</label>
+                    <input type="text" id="gameEmoji" placeholder="Pick an emoji (e.g., 🎮)" maxlength="2" style="width: 100px; padding: 12px; border-radius: 8px; border: 2px solid #333; background: #2a2a2a; color: white; font-size: 24px; text-align: center;">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Creator Name:</label>
+                    <input type="text" id="creatorName" placeholder="Your studio name..." style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #333; background: #2a2a2a; color: white; font-size: 16px;">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Game Theme:</label>
+                    <select id="gameTheme" style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #333; background: #2a2a2a; color: white; font-size: 16px;">
+                        <option value="purple">Purple Platforms</option>
+                        <option value="blue">Blue Ocean</option>
+                        <option value="red">Red Lava</option>
+                        <option value="green">Green Forest</option>
+                        <option value="rainbow">Rainbow World</option>
+                    </select>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Difficulty:</label>
+                    <select id="gameDifficulty" style="width: 100%; padding: 12px; border-radius: 8px; border: 2px solid #333; background: #2a2a2a; color: white; font-size: 16px;">
+                        <option value="easy">Easy (10 platforms)</option>
+                        <option value="medium">Medium (15 platforms)</option>
+                        <option value="hard">Hard (20 platforms)</option>
+                        <option value="extreme">Extreme (30 platforms)</option>
+                    </select>
+                </div>
+                
+                <button class="hero-btn" onclick="publishGame()" style="width: 100%; padding: 15px; font-size: 18px; margin-top: 10px;">🚀 Publish Game</button>
+            </div>
+            
+            <div style="background: #191919; padding: 30px; border-radius: 15px;">
+                <h2 style="margin-bottom: 20px;">📚 My Published Games</h2>
+                <div id="myGames" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                    <p style="color: #aaa;">No games published yet. Create your first game above!</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    function saveVotes() {
-      localStorage.setItem('votes', JSON.stringify(votes));
-    }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        const gameLibrary = [
+            // FEATURED BRAINROT GAMES
+            { id: 997, name: 'BRAINROT SPAWNER TYCOON', emoji: '🧠', creator: 'SigmaDevs', players: '420K', likes: '100%', popular: true, isBrainrot: true },
+            { id: 999, name: '99 NIGHTS IN THE FOREST', emoji: '💀', creator: 'SkibidiStudios', players: '127K', likes: '99%', popular: true, isBrainrot: true },
+            { id: 998, name: 'SKIBIDI TOILET STEAL', emoji: '🚽', creator: 'BrainrotGang', players: '213K', likes: '100%', popular: true, isBrainrot: true },
+            
+            // Popular games
+            { id: 1, name: 'Sky Islands', emoji: '☁️', creator: 'SkyBuilder', players: '45K', likes: '95%', popular: true },
+            { id: 2, name: 'Obby Master', emoji: '🧗', creator: 'ObbyPro', players: '38K', likes: '92%', popular: true },
+            { id: 3, name: 'Pet Simulator', emoji: '🐶', creator: 'PetLover', players: '89K', likes: '97%', popular: true },
+            { id: 4, name: 'Tower Defense', emoji: '🏰', creator: 'DefendKing', players: '52K', likes: '96%', popular: true },
+            { id: 5, name: 'Zombie Survival', emoji: '🧟', creator: 'HorrorMaster', players: '41K', likes: '93%', popular: true },
+            { id: 6, name: 'Racing Legends', emoji: '🏎️', creator: 'SpeedDemon', players: '36K', likes: '94%', popular: true },
+            
+            // Adventure games
+            { id: 7, name: 'Treasure Hunt', emoji: '💎', creator: 'AdventureX', players: '25K', likes: '88%' },
+            { id: 8, name: 'Space Explorer', emoji: '🚀', creator: 'CosmicGames', players: '28K', likes: '92%' },
+            { id: 9, name: 'Pirate Adventure', emoji: '🏴‍☠️', creator: 'SeaDogs', players: '19K', likes: '87%' },
+            { id: 10, name: 'Dragon Rider', emoji: '🐉', creator: 'Fantasy_Pro', players: '31K', likes: '91%' },
+            { id: 11, name: 'Jungle Quest', emoji: '🌴', creator: 'WildGamer', players: '17K', likes: '85%' },
+            
+            // Action games
+            { id: 12, name: 'Super Hero Sim', emoji: '🦸', creator: 'HeroStudio', players: '33K', likes: '91%' },
+            { id: 13, name: 'Ninja Warriors', emoji: '🥷', creator: 'ShadowNinja', players: '29K', likes: '90%' },
+            { id: 14, name: 'Sword Fighting', emoji: '⚔️', creator: 'BladeMaster', players: '22K', likes: '88%' },
+            { id: 15, name: 'Battle Royale', emoji: '💥', creator: 'WarZone', players: '44K', likes: '92%' },
+            { id: 16, name: 'Laser Tag', emoji: '🔫', creator: 'PewPew', players: '18K', likes: '86%' },
+            
+            // Roleplay games
+            { id: 17, name: 'Prison Escape', emoji: '🔒', creator: 'EscapePro', players: '27K', likes: '89%' },
+            { id: 18, name: 'City Life', emoji: '🏙️', creator: 'UrbanDev', players: '35K', likes: '90%' },
+            { id: 19, name: 'School Simulator', emoji: '🏫', creator: 'EduGames', players: '24K', likes: '84%' },
+            { id: 20, name: 'Restaurant Tycoon', emoji: '🍔', creator: 'FoodieKing', players: '21K', likes: '88%' },
+            { id: 21, name: 'Fashion Show', emoji: '👗', creator: 'StyleQueen', players: '26K', likes: '92%' },
+            
+            // Parkour/Obby games
+            { id: 22, name: 'Speed Run', emoji: '🏃', creator: 'FastGamer', players: '30K', likes: '89%' },
+            { id: 23, name: 'Mega Obby', emoji: '🎯', creator: 'ObbyKing', players: '32K', likes: '90%' },
+            { id: 24, name: 'Tower Climb', emoji: '🗼', creator: 'ClimbMaster', players: '19K', likes: '87%' },
+            { id: 25, name: 'Rainbow Parkour', emoji: '🌈', creator: 'ColorRunner', players: '23K', likes: '91%' },
+            
+            // Tycoon games
+            { id: 26, name: 'Mall Tycoon', emoji: '🏬', creator: 'ShopBuilder', players: '28K', likes: '88%' },
+            { id: 27, name: 'Zoo Tycoon', emoji: '🦁', creator: 'AnimalLover', players: '25K', likes: '89%' },
+            { id: 28, name: 'Theme Park', emoji: '🎢', creator: 'RidesMaster', players: '31K', likes: '93%' },
+            { id: 29, name: 'Mining Simulator', emoji: '⛏️', creator: 'DigDeep', players: '22K', likes: '85%' },
+            
+            // Horror games
+            { id: 30, name: 'Haunted House', emoji: '👻', creator: 'ScareKing', players: '26K', likes: '88%' },
+            { id: 31, name: 'The Nightmare', emoji: '😱', creator: 'DarkGamer', players: '20K', likes: '86%' },
+            { id: 32, name: 'Creepy Hospital', emoji: '🏥', creator: 'HorrorDoc', players: '18K', likes: '84%' },
+            
+            // Sports games
+            { id: 33, name: 'Soccer League', emoji: '⚽', creator: 'SportsKing', players: '27K', likes: '89%' },
+            { id: 34, name: 'Basketball Pro', emoji: '🏀', creator: 'HoopStar', players: '21K', likes: '87%' },
+            { id: 35, name: 'Skate Park', emoji: '🛹', creator: 'TrickMaster', players: '16K', likes: '85%' },
+            
+            // Misc games
+            { id: 36, name: 'Dance Party', emoji: '💃', creator: 'GrooveMaster', players: '29K', likes: '90%' },
+            { id: 37, name: 'Music Studio', emoji: '🎵', creator: 'BeatMaker', players: '19K', likes: '88%' },
+            { id: 38, name: 'Art Gallery', emoji: '🎨', creator: 'PicassoPro', players: '14K', likes: '86%' },
+            { id: 39, name: 'Magic School', emoji: '🪄', creator: 'WizardDev', players: '33K', likes: '94%' },
+            { id: 40, name: 'Robot Wars', emoji: '🤖', creator: 'MechBuilder', players: '24K', likes: '89%' }
+        ];
 
-    function like(person) {
-      if (person === 'ahmed') {
-        votes.ahmedLikes++;
-      } else if (person === 'halawa') {
-        votes.halawaLikes++;
-      }
-      saveVotes();
-      loadVotes();
-    }
+        let scene, camera, renderer, player, velocity;
+        let keys = {}, platforms = [], coins = [], isDead = false, cameraAngle = 0, cameraVerticalAngle = 0;
+        let totalCoins = 0, isGrounded = false;
 
-    function dislike(person) {
-      if (person === 'ahmed') {
-        votes.ahmedDislikes++;
-      } else if (person === 'halawa') {
-        votes.halawaDislikes++;
-      }
-      saveVotes();
-      loadVotes();
-    }
+        // Infinite level generation
+        let platformIndex = 0;
+        let lastPlatformZ = 0;
 
-    function resetVotes() {
-      if (confirm("Are you sure you want to reset all votes?")) {
-        votes = { ...defaultVotes };
-        saveVotes();
-        loadVotes();
-      }
-    }
-  </script>
+        // Auth variables
+        let currentUser = null;
+        let authMode = 'login';
+        
+        // Gamepad variables
+        let gamepadConnected = false;
+        let currentGamepad = null;
+        
+        // Skibidi Steal game variables
+        let stealGameActive = false;
+        let playerMoney = 0;
+        let playerToilets = [];
+        let playerTools = [];
+        let otherBases = [];
+        let shopOpen = false;
+        
+        // Brainrot Spawner game variables
+        let spawnerActive = false;
+        let coinStacks = 0;
+        let totalBrainrots = 0;
+        let brainrotSpawners = [];
+        let brainrotEntities = [];
+        let autoCollectors = 0;
+        let coinsPerSecond = 0;
+        let lastCoinTime = Date.now();
+
+        window.onload = () => {
+            checkAuth();
+            loadAllGames();
+            
+            // Listen for gamepad connection
+            window.addEventListener('gamepadconnected', (e) => {
+                console.log('🎮 Controller connected:', e.gamepad.id);
+                gamepadConnected = true;
+                currentGamepad = e.gamepad;
+                alert('🎮 Controller Connected!\n' + e.gamepad.id);
+            });
+            
+            window.addEventListener('gamepaddisconnected', (e) => {
+                console.log('🎮 Controller disconnected');
+                gamepadConnected = false;
+                currentGamepad = null;
+            });
+        };
+
+        function checkAuth() {
+            const saved = localStorage.getItem('currentUser');
+            if (saved) {
+                currentUser = JSON.parse(saved);
+                showLoggedInState();
+            } else {
+                showLoggedOutState();
+            }
+        }
+
+        function showLoggedInState() {
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('signupBtn').style.display = 'none';
+            document.getElementById('userProfile').style.display = 'flex';
+            document.getElementById('userStats').style.display = 'block';
+            document.getElementById('studioBtn').style.display = 'block';
+            document.getElementById('username').textContent = currentUser.username;
+            document.getElementById('menuUsername').textContent = currentUser.username;
+            document.getElementById('userAvatar').textContent = currentUser.username.charAt(0).toUpperCase();
+            document.getElementById('totalCoins').textContent = currentUser.coins || 0;
+            document.getElementById('totalTrophies').textContent = currentUser.trophies || 0;
+        }
+
+        function showLoggedOutState() {
+            document.getElementById('loginBtn').style.display = 'block';
+            document.getElementById('signupBtn').style.display = 'block';
+            document.getElementById('userProfile').style.display = 'none';
+            document.getElementById('userStats').style.display = 'none';
+            document.getElementById('studioBtn').style.display = 'none';
+        }
+
+        function loadAllGames() {
+            // Load popular games
+            const popularContainer = document.getElementById('popularGames');
+            const popularGames = gameLibrary.filter(g => g.popular);
+            popularContainer.innerHTML = '';
+            popularGames.forEach(game => {
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                if(game.isBrainrot) card.className += ' brainrot-card';
+                card.onclick = () => startGame(game.id);
+                card.innerHTML = `
+                    <div class="game-thumbnail">${game.emoji}</div>
+                    <div class="game-info">
+                        <b>${game.name}</b>
+                        <small>By ${game.creator} • ${game.players} playing</small>
+                    </div>
+                `;
+                popularContainer.appendChild(card);
+            });
+
+            // Load all games
+            const container = document.getElementById('allGames');
+            container.innerHTML = '';
+            gameLibrary.forEach(game => {
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                if(game.isBrainrot) card.className += ' brainrot-card';
+                card.onclick = () => startGame(game.id);
+                card.innerHTML = `
+                    <div class="game-thumbnail">${game.emoji}</div>
+                    <div class="game-info">
+                        <b>${game.name}</b>
+                        <small>By ${game.creator} • ${game.players} playing</small>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // ===== AUTH FUNCTIONS =====
+        function showAuth(mode) {
+            authMode = mode;
+            document.getElementById('authModal').style.display = 'flex';
+            
+            if (mode === 'login') {
+                document.getElementById('authTitle').textContent = '🔑 Login';
+                document.getElementById('authSubmitBtn').textContent = 'Login';
+                document.getElementById('signupFields').style.display = 'none';
+                document.getElementById('authSwitchText').textContent = "Don't have an account?";
+                document.getElementById('authSwitchLink').textContent = ' Sign Up';
+            } else {
+                document.getElementById('authTitle').textContent = '📝 Sign Up';
+                document.getElementById('authSubmitBtn').textContent = 'Create Account';
+                document.getElementById('signupFields').style.display = 'block';
+                document.getElementById('authSwitchText').textContent = 'Already have an account?';
+                document.getElementById('authSwitchLink').textContent = ' Login';
+            }
+            
+            document.getElementById('authUsername').value = '';
+            document.getElementById('authPassword').value = '';
+            document.getElementById('authEmail').value = '';
+        }
+
+        function closeAuth() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        function toggleAuthMode() {
+            showAuth(authMode === 'login' ? 'signup' : 'login');
+        }
+
+        function submitAuth() {
+            const username = document.getElementById('authUsername').value.trim();
+            const password = document.getElementById('authPassword').value;
+            const email = document.getElementById('authEmail').value.trim();
+            
+            if (!username || !password) {
+                alert('⚠️ Please fill in username and password!');
+                return;
+            }
+            
+            if (username.length < 3) {
+                alert('⚠️ Username must be at least 3 characters!');
+                return;
+            }
+            
+            if (password.length < 6) {
+                alert('⚠️ Password must be at least 6 characters!');
+                return;
+            }
+            
+            if (authMode === 'signup') {
+                const users = JSON.parse(localStorage.getItem('users') || '{}');
+                if (users[username]) {
+                    alert('⚠️ Username already exists! Please choose another.');
+                    return;
+                }
+                
+                users[username] = {
+                    username,
+                    password,
+                    email,
+                    coins: 0,
+                    trophies: 0,
+                    gamesCreated: [],
+                    createdAt: new Date().toISOString()
+                };
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                alert('✅ Account created successfully! You can now login.');
+                showAuth('login');
+            } else {
+                const users = JSON.parse(localStorage.getItem('users') || '{}');
+                if (!users[username] || users[username].password !== password) {
+                    alert('❌ Invalid username or password!');
+                    return;
+                }
+                
+                currentUser = users[username];
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                closeAuth();
+                showLoggedInState();
+                alert(`👋 Welcome back, ${username}!`);
+            }
+        }
+
+        function showProfileMenu() {
+            const menu = document.getElementById('profileMenu');
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                currentUser = null;
+                localStorage.removeItem('currentUser');
+                document.getElementById('profileMenu').style.display = 'none';
+                showLoggedOutState();
+                alert('👋 Logged out successfully!');
+            }
+        }
+
+        function viewMyGames() {
+            document.getElementById('profileMenu').style.display = 'none';
+            if (!currentUser) return;
+            openStudio();
+        }
+
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('profileMenu');
+            const profile = document.getElementById('userProfile');
+            if (menu && profile && menu.style.display === 'block' && !menu.contains(e.target) && !profile.contains(e.target)) {
+                menu.style.display = 'none';
+            }
+        });
+
+        function startGame(id) {
+            document.getElementById('loadingScreen').style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById('mainContent').style.display = 'none';
+                document.getElementById('gameCanvas').style.display = 'block';
+                document.getElementById('gameUI').style.display = 'block';
+                document.getElementById('closeGameBtn').style.display = 'block';
+                document.getElementById('loadingScreen').style.display = 'none';
+                if (!scene) initEngine();
+                
+                // Check which game to load
+                if (id === 999) {
+                    loadBrainrotGame();
+                } else if (id === 998) {
+                    loadSkibidiStealGame();
+                } else if (id === 997) {
+                    loadBrainrotSpawnerGame();
+                } else {
+                    loadLevel();
+                }
+                
+                animate();
+            }, 1500);
+        }
+
+        function createRobloxAvatar() {
+            const avatar = new THREE.Group();
+            
+            // Head
+            const headGeo = new THREE.BoxGeometry(1.2, 1.2, 1.2);
+            const headMat = new THREE.MeshStandardMaterial({ color: 0xffdbac });
+            const head = new THREE.Mesh(headGeo, headMat);
+            head.position.y = 2;
+            
+            // Torso
+            const torsoGeo = new THREE.BoxGeometry(1.5, 1.8, 0.8);
+            const torsoMat = new THREE.MeshStandardMaterial({ color: 0x0066ff });
+            const torso = new THREE.Mesh(torsoGeo, torsoMat);
+            torso.position.y = 0.5;
+            
+            // Arms
+            const armGeo = new THREE.BoxGeometry(0.5, 1.4, 0.5);
+            const armMat = new THREE.MeshStandardMaterial({ color: 0x0066ff });
+            const leftArm = new THREE.Mesh(armGeo, armMat);
+            leftArm.position.set(-1, 0.5, 0);
+            const rightArm = new THREE.Mesh(armGeo, armMat);
+            rightArm.position.set(1, 0.5, 0);
+            
+            // Legs
+            const legGeo = new THREE.BoxGeometry(0.6, 1.6, 0.6);
+            const legMat = new THREE.MeshStandardMaterial({ color: 0x00aa00 });
+            const leftLeg = new THREE.Mesh(legGeo, legMat);
+            leftLeg.position.set(-0.45, -1.2, 0);
+            const rightLeg = new THREE.Mesh(legGeo, legMat);
+            rightLeg.position.set(0.45, -1.2, 0);
+            
+            // Face
+            const eyeGeo = new THREE.BoxGeometry(0.2, 0.2, 0.1);
+            const eyeMat = new THREE.MeshStandardMaterial({ color: 0x000000 });
+            const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
+            leftEye.position.set(-0.3, 2.2, 0.6);
+            const rightEye = new THREE.Mesh(eyeGeo, eyeMat);
+            rightEye.position.set(0.3, 2.2, 0.6);
+            const mouthGeo = new THREE.BoxGeometry(0.5, 0.1, 0.1);
+            const mouth = new THREE.Mesh(mouthGeo, eyeMat);
+            mouth.position.set(0, 1.8, 0.6);
+            
+            avatar.add(head, torso, leftArm, rightArm, leftLeg, rightLeg, leftEye, rightEye, mouth);
+            return avatar;
+        }
+
+        function initEngine() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x87CEEB);
+            scene.fog = new THREE.Fog(0x87CEEB, 10, 100);
+            
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('gameCanvas'), antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+            
+            const light = new THREE.DirectionalLight(0xffffff, 1);
+            light.position.set(10, 20, 10);
+            light.castShadow = true;
+            scene.add(new THREE.AmbientLight(0xffffff, 0.6), light);
+
+            player = createRobloxAvatar();
+            scene.add(player);
+
+            velocity = new THREE.Vector3();
+            window.addEventListener('keydown', e => keys[e.code] = true);
+            window.addEventListener('keyup', e => keys[e.code] = false);
+            window.addEventListener('mousemove', e => { 
+                if(!isDead && document.pointerLockElement === renderer.domElement) {
+                    cameraAngle -= e.movementX * 0.005;
+                    cameraVerticalAngle -= e.movementY * 0.005;
+                    cameraVerticalAngle = Math.max(-Math.PI/3, Math.min(Math.PI/3, cameraVerticalAngle));
+                }
+            });
+            document.addEventListener('click', () => { 
+                if(document.getElementById('gameCanvas').style.display === 'block') {
+                    renderer.domElement.requestPointerLock(); 
+                }
+            });
+            
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        }
+
+        function loadLevel() {
+            platforms.forEach(p => scene.remove(p));
+            coins.forEach(c => scene.remove(c));
+            platforms = [];
+            coins = [];
+            platformIndex = 0;
+            lastPlatformZ = 0;
+            
+            // Starting floor
+            const floor = new THREE.Mesh(
+                new THREE.BoxGeometry(20, 1, 20), 
+                new THREE.MeshStandardMaterial({color: 0x228b22})
+            );
+            floor.position.y = -1;
+            floor.receiveShadow = true;
+            scene.add(floor);
+            platforms.push(floor);
+            
+            // Generate initial platforms
+            for(let i = 0; i < 20; i++) {
+                generateNextPlatform();
+            }
+            
+            player.position.set(0, 3, 0);
+            velocity.set(0, 0, 0);
+            cameraAngle = 0;
+            cameraVerticalAngle = 0;
+            totalCoins = 0;
+            document.getElementById('coinCount').textContent = '0';
+        }
+
+        function generateNextPlatform() {
+            platformIndex++;
+            
+            // Create platform
+            const size = 3 + Math.random() * 2;
+            const p = new THREE.Mesh(
+                new THREE.BoxGeometry(size, 0.5, size), 
+                new THREE.MeshStandardMaterial({color: 0x764ba2})
+            );
+            
+            lastPlatformZ -= 3; // Move 3 units forward each time
+            p.position.set(
+                (Math.random() - 0.5) * 8,
+                Math.sin(platformIndex * 0.3) * 1.5 + 0.5 + Math.random() * 1, // LOWERED: max height now 3 instead of 8+
+                lastPlatformZ
+            );
+            
+            p.castShadow = true;
+            p.receiveShadow = true;
+            p.userData.platformIndex = platformIndex;
+            scene.add(p);
+            platforms.push(p);
+            
+            // Add coin sometimes
+            if (Math.random() > 0.5) {
+                const coinGeo = new THREE.CylinderGeometry(0.3, 0.3, 0.1, 16);
+                const coinMat = new THREE.MeshStandardMaterial({
+                    color: 0xFFD700, 
+                    emissive: 0xFFD700, 
+                    emissiveIntensity: 0.3
+                });
+                const coin = new THREE.Mesh(coinGeo, coinMat);
+                coin.position.set(p.position.x, p.position.y + 1.5, p.position.z);
+                coin.rotation.x = Math.PI / 2;
+                coin.userData.platformIndex = platformIndex;
+                scene.add(coin);
+                coins.push(coin);
+            }
+            
+            // Add moving platform sometimes
+            if (platformIndex % 7 === 0) {
+                const obstacle = new THREE.Mesh(
+                    new THREE.BoxGeometry(2, 0.5, 2),
+                    new THREE.MeshStandardMaterial({color: 0xFF4444})
+                );
+                obstacle.position.set(
+                    (Math.random() - 0.5) * 6,
+                    p.position.y + 2, // LOWERED: moves relative to platform height
+                    lastPlatformZ - 5
+                );
+                obstacle.userData.startY = obstacle.position.y;
+                obstacle.userData.moveSpeed = 0.004;
+                obstacle.userData.platformIndex = platformIndex;
+                scene.add(obstacle);
+                platforms.push(obstacle);
+            }
+        }
+
+        function cleanupOldPlatforms() {
+            // Remove platforms that are far behind the player
+            platforms = platforms.filter(p => {
+                if (p.position.z > player.position.z + 30) {
+                    scene.remove(p);
+                    return false;
+                }
+                return true;
+            });
+            
+            // Remove old coins
+            coins = coins.filter(c => {
+                if (c.position.z > player.position.z + 30) {
+                    scene.remove(c);
+                    return false;
+                }
+                return true;
+            });
+        }
+        
+        // ===== BRAINROT HORROR GAME: 99 NIGHTS IN THE FOREST =====
+        let nightCounter = 1;
+        let skibidiEnemies = [];
+        let trees = [];
+        let currentNightTime = 0;
+        let dayNightCycle = 0;
+        
+        function loadBrainrotGame() {
+            // Clear everything
+            platforms.forEach(p => scene.remove(p));
+            coins.forEach(c => scene.remove(c));
+            skibidiEnemies.forEach(e => scene.remove(e));
+            trees.forEach(t => scene.remove(t));
+            platforms = [];
+            coins = [];
+            skibidiEnemies = [];
+            trees = [];
+            nightCounter = 1;
+            currentNightTime = 0;
+            dayNightCycle = 0;
+            
+            // DARK HORROR ATMOSPHERE
+            scene.background = new THREE.Color(0x0a0a1a);
+            scene.fog = new THREE.Fog(0x0a0a1a, 5, 40);
+            
+            // FOREST GROUND (grass terrain)
+            const groundSize = 200;
+            const groundGeo = new THREE.PlaneGeometry(groundSize, groundSize, 50, 50);
+            const groundMat = new THREE.MeshStandardMaterial({ 
+                color: 0x1a3d1a,
+                roughness: 0.9
+            });
+            const ground = new THREE.Mesh(groundGeo, groundMat);
+            ground.rotation.x = -Math.PI / 2;
+            ground.receiveShadow = true;
+            
+            // Add terrain bumps
+            const vertices = ground.geometry.attributes.position.array;
+            for(let i = 0; i < vertices.length; i += 3) {
+                vertices[i + 2] = Math.random() * 0.5; // Random height
+            }
+            ground.geometry.attributes.position.needsUpdate = true;
+            ground.geometry.computeVertexNormals();
+            
+            scene.add(ground);
+            platforms.push(ground);
+            
+            // CREATE REALISTIC TREES (not blocks!)
+            for(let i = 0; i < 60; i++) {
+                const tree = createRealisticTree();
+                const angle = Math.random() * Math.PI * 2;
+                const distance = 20 + Math.random() * 70;
+                tree.position.x = Math.cos(angle) * distance;
+                tree.position.z = Math.sin(angle) * distance;
+                tree.position.y = 0;
+                trees.push(tree);
+                scene.add(tree);
+            }
+            
+            // CAMPFIRE in center
+            const campfire = createCampfire();
+            campfire.position.set(0, 0.5, 0);
+            scene.add(campfire);
+            platforms.push(campfire);
+            
+            // SPAWN SKIBIDI TOILET ENEMIES
+            spawnSkibidiEnemies(nightCounter);
+            
+            // Player starting position
+            player.position.set(0, 3, 5);
+            velocity.set(0, 0, 0);
+            cameraAngle = 0;
+            cameraVerticalAngle = 0;
+            
+            // UI update
+            document.getElementById('coinCount').textContent = 'Night ' + nightCounter;
+            document.getElementById('livesCount').textContent = '❤️❤️❤️';
+            
+            // Play scary sound (visual indicator)
+            showWarning('🚨 NIGHT ' + nightCounter + ' - SURVIVE UNTIL DAWN! 🚨');
+        }
+        
+        function createRealisticTree() {
+            const tree = new THREE.Group();
+            
+            // Tree trunk (cylinder, not box!)
+            const trunkGeo = new THREE.CylinderGeometry(0.4, 0.5, 6, 8);
+            const trunkMat = new THREE.MeshStandardMaterial({ color: 0x4a2c1a });
+            const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+            trunk.position.y = 3;
+            trunk.castShadow = true;
+            tree.add(trunk);
+            
+            // Tree leaves (sphere clusters, not boxes!)
+            const leafGeo = new THREE.SphereGeometry(2.5, 8, 8);
+            const leafMat = new THREE.MeshStandardMaterial({ 
+                color: 0x1a4d1a,
+                roughness: 0.8
+            });
+            
+            // Multiple leaf clusters for realistic look
+            for(let i = 0; i < 3; i++) {
+                const leaves = new THREE.Mesh(leafGeo, leafMat);
+                leaves.position.y = 5 + i * 1.5;
+                leaves.position.x = (Math.random() - 0.5) * 1;
+                leaves.position.z = (Math.random() - 0.5) * 1;
+                leaves.scale.set(1 - i * 0.2, 1 - i * 0.2, 1 - i * 0.2);
+                leaves.castShadow = true;
+                tree.add(leaves);
+            }
+            
+            return tree;
+        }
+        
+        function createCampfire() {
+            const campfire = new THREE.Group();
+            
+            // Logs arranged in circle
+            const logGeo = new THREE.CylinderGeometry(0.15, 0.15, 2, 8);
+            const logMat = new THREE.MeshStandardMaterial({ color: 0x3d2817 });
+            
+            for(let i = 0; i < 6; i++) {
+                const log = new THREE.Mesh(logGeo, logMat);
+                const angle = (i / 6) * Math.PI * 2;
+                log.position.x = Math.cos(angle) * 0.5;
+                log.position.z = Math.sin(angle) * 0.5;
+                log.position.y = 0.5;
+                log.rotation.z = angle;
+                campfire.add(log);
+            }
+            
+            // Fire (glowing sphere)
+            const fireGeo = new THREE.SphereGeometry(0.6, 8, 8);
+            const fireMat = new THREE.MeshStandardMaterial({ 
+                color: 0xff4400,
+                emissive: 0xff4400,
+                emissiveIntensity: 1
+            });
+            const fire = new THREE.Mesh(fireGeo, fireMat);
+            fire.position.y = 1;
+            campfire.add(fire);
+            
+            // Fire light
+            const fireLight = new THREE.PointLight(0xff4400, 2, 20);
+            fireLight.position.y = 1;
+            campfire.add(fireLight);
+            
+            return campfire;
+        }
+        
+        function createSkibidiToilet() {
+            const enemy = new THREE.Group();
+            
+            // Toilet base (white porcelain)
+            const baseGeo = new THREE.CylinderGeometry(0.8, 0.9, 1.5, 16);
+            const baseMat = new THREE.MeshStandardMaterial({ color: 0xffffff });
+            const base = new THREE.Mesh(baseGeo, baseMat);
+            base.position.y = 0.75;
+            enemy.add(base);
+            
+            // Toilet seat (darker)
+            const seatGeo = new THREE.TorusGeometry(0.7, 0.15, 8, 16);
+            const seatMat = new THREE.MeshStandardMaterial({ color: 0xcccccc });
+            const seat = new THREE.Mesh(seatGeo, seatMat);
+            seat.position.y = 1.5;
+            seat.rotation.x = Math.PI / 2;
+            enemy.add(seat);
+            
+            // HEAD (creepy sphere with face)
+            const headGeo = new THREE.SphereGeometry(0.6, 16, 16);
+            const headMat = new THREE.MeshStandardMaterial({ color: 0xffdbac });
+            const head = new THREE.Mesh(headGeo, headMat);
+            head.position.y = 2.5;
+            enemy.add(head);
+            
+            // Eyes (red glowing)
+            const eyeGeo = new THREE.SphereGeometry(0.1, 8, 8);
+            const eyeMat = new THREE.MeshStandardMaterial({ 
+                color: 0xff0000,
+                emissive: 0xff0000,
+                emissiveIntensity: 1
+            });
+            const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
+            leftEye.position.set(-0.2, 2.6, 0.5);
+            enemy.add(leftEye);
+            
+            const rightEye = new THREE.Mesh(eyeGeo, eyeMat);
+            rightEye.position.set(0.2, 2.6, 0.5);
+            enemy.add(rightEye);
+            
+            // Mouth (creepy)
+            const mouthGeo = new THREE.BoxGeometry(0.4, 0.1, 0.1);
+            const mouthMat = new THREE.MeshStandardMaterial({ color: 0x000000 });
+            const mouth = new THREE.Mesh(mouthGeo, mouthMat);
+            mouth.position.set(0, 2.3, 0.55);
+            enemy.add(mouth);
+            
+            // Random spawn position around player
+            const angle = Math.random() * Math.PI * 2;
+            const distance = 30 + Math.random() * 20;
+            enemy.position.x = Math.cos(angle) * distance;
+            enemy.position.z = Math.sin(angle) * distance;
+            enemy.position.y = 0;
+            
+            enemy.userData.speed = 0.03 + Math.random() * 0.02;
+            enemy.userData.isEnemy = true;
+            
+            return enemy;
+        }
+        
+        function spawnSkibidiEnemies(night) {
+            const enemyCount = 3 + (night * 2); // More enemies each night
+            
+            for(let i = 0; i < enemyCount; i++) {
+                const enemy = createSkibidiToilet();
+                skibidiEnemies.push(enemy);
+                scene.add(enemy);
+            }
+        }
+        
+        function updateBrainrotGame() {
+            // Day/Night cycle
+            dayNightCycle += 0.001;
+            currentNightTime += 0.01;
+            
+            // Night lasts 60 seconds
+            if(currentNightTime >= 60) {
+                nightCounter++;
+                if(nightCounter > 99) {
+                    // YOU WIN!
+                    alert('🎉 YOU SURVIVED 99 NIGHTS! YOU ARE THE ULTIMATE SIGMA! 🎉');
+                    closeGame();
+                    return;
+                }
+                showWarning('🌅 DAWN! Survived Night ' + (nightCounter - 1) + '! 🌅');
+                currentNightTime = 0;
+                
+                // Spawn more enemies for next night
+                spawnSkibidiEnemies(nightCounter);
+                document.getElementById('coinCount').textContent = 'Night ' + nightCounter;
+            }
+            
+            // Update enemies - chase player
+            skibidiEnemies.forEach(enemy => {
+                // Look at player
+                enemy.lookAt(player.position);
+                
+                // Move towards player
+                const direction = new THREE.Vector3();
+                direction.subVectors(player.position, enemy.position);
+                direction.y = 0;
+                direction.normalize();
+                
+                enemy.position.add(direction.multiplyScalar(enemy.userData.speed));
+                
+                // Bob up and down (creepy animation)
+                enemy.position.y = Math.sin(Date.now() * 0.005 + enemy.position.x) * 0.3;
+                
+                // Check if enemy caught player
+                const distance = player.position.distanceTo(enemy.position);
+                if(distance < 2) {
+                    // JUMPSCARE!
+                    isDead = true;
+                    document.getElementById('deathScreen').style.display = 'flex';
+                    document.getElementById('deathScreen').querySelector('h2').textContent = '💀 SKIBIDI TOILET GOT YOU! 💀';
+                    document.exitPointerLock();
+                }
+            });
+            
+            // Ambient horror lighting
+            const intensity = 0.3 + Math.sin(dayNightCycle * 10) * 0.1;
+            scene.children.forEach(child => {
+                if(child instanceof THREE.AmbientLight) {
+                    child.intensity = intensity;
+                }
+            });
+        }
+        
+        function showWarning(message) {
+            const warning = document.createElement('div');
+            warning.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(255, 0, 0, 0.9);
+                color: white;
+                padding: 30px 60px;
+                border-radius: 20px;
+                font-size: 32px;
+                font-weight: bold;
+                z-index: 3000;
+                text-align: center;
+                animation: pulse 0.5s infinite;
+            `;
+            warning.textContent = message;
+            document.body.appendChild(warning);
+            
+            setTimeout(() => {
+                document.body.removeChild(warning);
+            }, 3000);
+        }
+        
+        // ===== SKIBIDI TOILET STEAL GAME =====
+        function loadSkibidiStealGame() {
+            // Clear everything
+            platforms.forEach(p => scene.remove(p));
+            coins.forEach(c => scene.remove(c));
+            skibidiEnemies.forEach(e => scene.remove(e));
+            trees.forEach(t => scene.remove(t));
+            otherBases.forEach(b => scene.remove(b.group));
+            platforms = [];
+            coins = [];
+            skibidiEnemies = [];
+            trees = [];
+            otherBases = [];
+            playerToilets = [];
+            playerTools = [];
+            
+            stealGameActive = true;
+            playerMoney = 1000; // Starting money
+            
+            // Show instructions
+            document.getElementById('gameInstructions').style.display = 'block';
+            document.getElementById('gameInstructions').innerHTML = 'Press <strong>E</strong> near toilets to STEAL • Press <strong>E</strong> at SHOP to buy';
+            
+            // CITY ATMOSPHERE
+            scene.background = new THREE.Color(0x87CEEB);
+            scene.fog = new THREE.Fog(0x87CEEB, 10, 150);
+            
+            // HUGE GROUND (city map)
+            const groundSize = 300;
+            const groundGeo = new THREE.PlaneGeometry(groundSize, groundSize);
+            const groundMat = new THREE.MeshStandardMaterial({ color: 0x555555 });
+            const ground = new THREE.Mesh(groundGeo, groundMat);
+            ground.rotation.x = -Math.PI / 2;
+            ground.receiveShadow = true;
+            scene.add(ground);
+            platforms.push(ground);
+            
+            // PLAYER BASE (your base)
+            const playerBase = createBase(0, 0, 0x00ff00, "YOUR BASE");
+            scene.add(playerBase);
+            platforms.push(playerBase);
+            
+            // OTHER PLAYER BASES (to steal from)
+            const basePositions = [
+                { x: 50, z: 50, color: 0xff0000, name: "SIGMA BASE" },
+                { x: -50, z: 50, color: 0x0000ff, name: "OHIO BASE" },
+                { x: 50, z: -50, color: 0xffff00, name: "RIZZ BASE" },
+                { x: -50, z: -50, color: 0xff00ff, name: "GYATT BASE" },
+                { x: 80, z: 0, color: 0x00ffff, name: "SKIBIDI BASE" }
+            ];
+            
+            basePositions.forEach(pos => {
+                const base = createBase(pos.x, pos.z, pos.color, pos.name);
+                scene.add(base);
+                
+                // Add toilets to steal
+                const toilets = [];
+                for(let i = 0; i < 5; i++) {
+                    const toilet = createStealableToilet(pos.x + (Math.random() - 0.5) * 15, 1, pos.z + (Math.random() - 0.5) * 15);
+                    toilets.push(toilet);
+                    scene.add(toilet);
+                }
+                
+                otherBases.push({
+                    group: base,
+                    position: { x: pos.x, z: pos.z },
+                    name: pos.name,
+                    toilets: toilets
+                });
+            });
+            
+            // SHOP (in center of map)
+            const shop = createShop();
+            shop.position.set(0, 0, 30);
+            scene.add(shop);
+            platforms.push(shop);
+            
+            // Player starting position
+            player.position.set(0, 3, 10);
+            velocity.set(0, 0, 0);
+            cameraAngle = 0;
+            cameraVerticalAngle = 0;
+            
+            // UI
+            updateStealUI();
+            
+            showWarning('🚽 SKIBIDI TOILET STEAL! 💰 Steal toilets from other bases!');
+            
+            // Create shop UI
+            createShopUI();
+        }
+        
+        function createBase(x, z, color, name) {
+            const base = new THREE.Group();
+            
+            // Base platform
+            const platformGeo = new THREE.BoxGeometry(20, 1, 20);
+            const platformMat = new THREE.MeshStandardMaterial({ color: color });
+            const platform = new THREE.Mesh(platformGeo, platformMat);
+            platform.position.y = 0.5;
+            platform.receiveShadow = true;
+            base.add(platform);
+            
+            // Walls
+            const wallGeo = new THREE.BoxGeometry(20, 5, 1);
+            const wallMat = new THREE.MeshStandardMaterial({ color: color, opacity: 0.5, transparent: true });
+            
+            const wall1 = new THREE.Mesh(wallGeo, wallMat);
+            wall1.position.set(0, 3, -10);
+            base.add(wall1);
+            
+            const wall2 = new THREE.Mesh(wallGeo, wallMat);
+            wall2.position.set(0, 3, 10);
+            base.add(wall2);
+            
+            const wall3 = new THREE.Mesh(wallGeo, wallMat);
+            wall3.position.set(-10, 3, 0);
+            wall3.rotation.y = Math.PI / 2;
+            base.add(wall3);
+            
+            const wall4 = new THREE.Mesh(wallGeo, wallMat);
+            wall4.position.set(10, 3, 0);
+            wall4.rotation.y = Math.PI / 2;
+            base.add(wall4);
+            
+            base.position.set(x, 0, z);
+            base.userData.isBase = true;
+            base.userData.name = name;
+            
+            return base;
+        }
+        
+        function createStealableToilet(x, y, z) {
+            const toilet = new THREE.Group();
+            
+            // Toilet (same as skibidi enemy but smaller)
+            const baseGeo = new THREE.CylinderGeometry(0.4, 0.45, 0.8, 16);
+            const baseMat = new THREE.MeshStandardMaterial({ color: 0xffffff });
+            const base = new THREE.Mesh(baseGeo, baseMat);
+            base.position.y = 0.4;
+            toilet.add(base);
+            
+            const seatGeo = new THREE.TorusGeometry(0.35, 0.08, 8, 16);
+            const seatMat = new THREE.MeshStandardMaterial({ color: 0xcccccc });
+            const seat = new THREE.Mesh(seatGeo, seatMat);
+            seat.position.y = 0.8;
+            seat.rotation.x = Math.PI / 2;
+            toilet.add(seat);
+            
+            toilet.position.set(x, y, z);
+            toilet.userData.isStealable = true;
+            toilet.userData.value = 100;
+            
+            return toilet;
+        }
+        
+        function createShop() {
+            const shop = new THREE.Group();
+            
+            // Shop building
+            const buildingGeo = new THREE.BoxGeometry(15, 8, 15);
+            const buildingMat = new THREE.MeshStandardMaterial({ color: 0xFFD700 });
+            const building = new THREE.Mesh(buildingGeo, buildingMat);
+            building.position.y = 4;
+            shop.add(building);
+            
+            // Roof
+            const roofGeo = new THREE.ConeGeometry(10, 4, 4);
+            const roofMat = new THREE.MeshStandardMaterial({ color: 0xFF6600 });
+            const roof = new THREE.Mesh(roofGeo, roofMat);
+            roof.position.y = 10;
+            roof.rotation.y = Math.PI / 4;
+            shop.add(roof);
+            
+            shop.userData.isShop = true;
+            
+            return shop;
+        }
+        
+        function createShopUI() {
+            const shopUI = document.createElement('div');
+            shopUI.id = 'shopUI';
+            shopUI.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0, 0, 0, 0.95);
+                padding: 30px;
+                border-radius: 20px;
+                border: 3px solid gold;
+                z-index: 3000;
+                display: none;
+                min-width: 500px;
+            `;
+            
+            shopUI.innerHTML = `
+                <h2 style="color: gold; text-align: center; margin-bottom: 20px;">🛒 SKIBIDI SHOP 🛒</h2>
+                <div style="color: white; margin-bottom: 20px;">
+                    <p>💰 Your Money: $<span id="shopMoney">1000</span></p>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <button onclick="buyItem('tool1', 500)" style="padding: 20px; background: #667eea; border: none; border-radius: 10px; color: white; font-weight: bold; cursor: pointer;">
+                        🔧 BASIC STEALER<br>$500
+                    </button>
+                    <button onclick="buyItem('tool2', 1500)" style="padding: 20px; background: #667eea; border: none; border-radius: 10px; color: white; font-weight: bold; cursor: pointer;">
+                        ⚡ MEGA STEALER<br>$1500
+                    </button>
+                    <button onclick="buyItem('toilet1', 300)" style="padding: 20px; background: #00aa00; border: none; border-radius: 10px; color: white; font-weight: bold; cursor: pointer;">
+                        🚽 BASIC TOILET<br>$300
+                    </button>
+                    <button onclick="buyItem('toilet2', 800)" style="padding: 20px; background: #00aa00; border: none; border-radius: 10px; color: white; font-weight: bold; cursor: pointer;">
+                        🚽 GOLDEN TOILET<br>$800
+                    </button>
+                </div>
+                <button onclick="closeShop()" style="width: 100%; padding: 15px; background: #ff4444; border: none; border-radius: 10px; color: white; font-weight: bold; cursor: pointer; margin-top: 20px;">
+                    Close Shop
+                </button>
+            `;
+            
+            document.body.appendChild(shopUI);
+        }
+        
+        function updateStealUI() {
+            document.getElementById('coinCount').textContent = '$' + playerMoney;
+            document.getElementById('livesCount').textContent = '🚽×' + playerToilets.length;
+        }
+        
+        function updateStealGame() {
+            if(!stealGameActive) return;
+            
+            // Check if player is near shop
+            const distToShop = Math.sqrt(Math.pow(player.position.x - 0, 2) + Math.pow(player.position.z - 30, 2));
+            if(distToShop < 10 && keys['KeyE']) {
+                openShop();
+            }
+            
+            // Check if player can steal toilets
+            otherBases.forEach(base => {
+                base.toilets.forEach((toilet, index) => {
+                    if(!toilet.parent) return; // Already stolen
+                    
+                    const dist = player.position.distanceTo(toilet.position);
+                    if(dist < 3 && keys['KeyE']) {
+                        // STEAL IT!
+                        scene.remove(toilet);
+                        base.toilets.splice(index, 1);
+                        playerMoney += toilet.userData.value;
+                        playerToilets.push(toilet);
+                        updateStealUI();
+                        showWarning('💰 +$' + toilet.userData.value + ' STOLEN!');
+                    }
+                });
+            });
+        }
+        
+        function openShop() {
+            shopOpen = true;
+            document.getElementById('shopUI').style.display = 'block';
+            document.getElementById('shopMoney').textContent = playerMoney;
+            document.exitPointerLock();
+        }
+        
+        function closeShop() {
+            shopOpen = false;
+            document.getElementById('shopUI').style.display = 'none';
+        }
+        
+        function buyItem(item, price) {
+            if(playerMoney < price) {
+                alert('❌ NOT ENOUGH MONEY!');
+                return;
+            }
+            
+            playerMoney -= price;
+            document.getElementById('shopMoney').textContent = playerMoney;
+            updateStealUI();
+            
+            if(item.startsWith('tool')) {
+                playerTools.push(item);
+                alert('✅ Bought tool! You can steal faster now!');
+            } else if(item.startsWith('toilet')) {
+                playerToilets.push(item);
+                alert('✅ Bought toilet! Added to your base!');
+            }
+        }
+        
+        // ===== BRAINROT SPAWNER TYCOON - ULTIMATE PRO VERSION =====
+        function loadBrainrotSpawnerGame() {
+            // Reset everything
+            platforms.forEach(p => scene.remove(p));
+            coins.forEach(c => scene.remove(c));
+            skibidiEnemies.forEach(e => scene.remove(e));
+            trees.forEach(t => scene.remove(t));
+            otherBases.forEach(b => scene.remove(b.group));
+            brainrotSpawners.forEach(s => scene.remove(s));
+            brainrotEntities.forEach(e => scene.remove(e));
+            
+            platforms = [];
+            coins = [];
+            skibidiEnemies = [];
+            trees = [];
+            otherBases = [];
+            brainrotSpawners = [];
+            brainrotEntities = [];
+            
+            spawnerActive = true;
+            coinStacks = 100; // Start with 100 coins
+            totalBrainrots = 0;
+            autoCollectors = 0;
+            coinsPerSecond = 0;
+            lastCoinTime = Date.now();
+            
+            // LUXURY TYCOON ATMOSPHERE
+            scene.background = new THREE.Color(0x1a0033); // Purple/dark
+            scene.fog = new THREE.Fog(0x1a0033, 10, 100);
+            
+            // GOLDEN PLATFORM (your tycoon base)
+            const groundSize = 100;
+            const groundGeo = new THREE.CircleGeometry(groundSize, 64);
+            const groundMat = new THREE.MeshStandardMaterial({ 
+                color: 0xFFD700,
+                metalness: 0.8,
+                roughness: 0.2,
+                emissive: 0xFFD700,
+                emissiveIntensity: 0.2
+            });
+            const ground = new THREE.Mesh(groundGeo, groundMat);
+            ground.rotation.x = -Math.PI / 2;
+            ground.receiveShadow = true;
+            scene.add(ground);
+            platforms.push(ground);
+            
+            // SPAWN ZONE (glowing circle)
+            const spawnZoneGeo = new THREE.CylinderGeometry(5, 5, 0.5, 32);
+            const spawnZoneMat = new THREE.MeshStandardMaterial({
+                color: 0x00ff00,
+                emissive: 0x00ff00,
+                emissiveIntensity: 0.5,
+                transparent: true,
+                opacity: 0.7
+            });
+            const spawnZone = new THREE.Mesh(spawnZoneGeo, spawnZoneMat);
+            spawnZone.position.set(0, 0.25, 0);
+            scene.add(spawnZone);
+            platforms.push(spawnZone);
+            
+            // UPGRADE PEDESTALS (floating platforms to buy spawners)
+            createUpgradePedestal(-15, 0, -15, 'BASIC SPAWNER', 50, 0xff6600, 'spawner1');
+            createUpgradePedestal(15, 0, -15, 'MEGA SPAWNER', 200, 0xff0066, 'spawner2');
+            createUpgradePedestal(-15, 0, 15, 'ULTRA SPAWNER', 500, 0x9900ff, 'spawner3');
+            createUpgradePedestal(15, 0, 15, 'AUTO COLLECTOR', 1000, 0x00ffff, 'collector');
+            createUpgradePedestal(0, 0, -25, 'GOLDEN SPAWNER', 2500, 0xFFD700, 'spawner4');
+            
+            // Create coin stack display
+            createCoinStackDisplay();
+            
+            // Player start
+            player.position.set(0, 3, 8);
+            velocity.set(0, 0, 0);
+            cameraAngle = 0;
+            cameraVerticalAngle = 0;
+            
+            // UI
+            updateSpawnerUI();
+            document.getElementById('gameInstructions').style.display = 'block';
+            document.getElementById('gameInstructions').innerHTML = '💰 Collect coins • Press <strong>E</strong> at pedestals to buy spawners • Watch brainrots spawn!';
+            
+            showWarning('🧠 BRAINROT SPAWNER TYCOON! 💰 Collect coins and buy spawners!');
+            
+            // Create spawner shop UI
+            createSpawnerShopUI();
+        }
+        
+        function createUpgradePedestal(x, y, z, name, cost, color, type) {
+            const pedestal = new THREE.Group();
+            
+            // Base platform (hexagon)
+            const hexGeo = new THREE.CylinderGeometry(3, 3, 0.5, 6);
+            const hexMat = new THREE.MeshStandardMaterial({
+                color: color,
+                metalness: 0.7,
+                roughness: 0.3,
+                emissive: color,
+                emissiveIntensity: 0.3
+            });
+            const hex = new THREE.Mesh(hexGeo, hexMat);
+            hex.position.y = 0.25;
+            pedestal.add(hex);
+            
+            // Hologram pillar
+            const pillarGeo = new THREE.CylinderGeometry(0.3, 0.3, 5, 16);
+            const pillarMat = new THREE.MeshStandardMaterial({
+                color: color,
+                transparent: true,
+                opacity: 0.6,
+                emissive: color,
+                emissiveIntensity: 0.8
+            });
+            const pillar = new THREE.Mesh(pillarGeo, pillarMat);
+            pillar.position.y = 3;
+            pedestal.add(pillar);
+            
+            // Floating icon (sphere)
+            const iconGeo = new THREE.SphereGeometry(1, 32, 32);
+            const iconMat = new THREE.MeshStandardMaterial({
+                color: color,
+                emissive: color,
+                emissiveIntensity: 1,
+                metalness: 0.9,
+                roughness: 0.1
+            });
+            const icon = new THREE.Mesh(iconGeo, iconMat);
+            icon.position.y = 6;
+            pedestal.add(icon);
+            
+            pedestal.position.set(x, y, z);
+            pedestal.userData.isPedestal = true;
+            pedestal.userData.name = name;
+            pedestal.userData.cost = cost;
+            pedestal.userData.type = type;
+            pedestal.userData.color = color;
+            
+            scene.add(pedestal);
+            platforms.push(pedestal);
+        }
+        
+        function createCoinStackDisplay() {
+            // This will be updated with actual 3D coin stacks as you earn
+            const stacksPerRow = 10;
+            const rows = Math.floor(coinStacks / 10);
+            
+            // Remove old coin displays
+            scene.children.forEach(child => {
+                if(child.userData.isCoinDisplay) {
+                    scene.remove(child);
+                }
+            });
+            
+            // Create coin stacks around the spawn zone
+            for(let i = 0; i < Math.min(coinStacks, 100); i++) {
+                const angle = (i / stacksPerRow) * Math.PI * 2;
+                const radius = 8 + Math.floor(i / stacksPerRow) * 2;
+                
+                const coinStack = createPhysicalCoinStack();
+                coinStack.position.x = Math.cos(angle) * radius;
+                coinStack.position.z = Math.sin(angle) * radius;
+                coinStack.position.y = 0.5;
+                coinStack.userData.isCoinDisplay = true;
+                scene.add(coinStack);
+            }
+        }
+        
+        function createPhysicalCoinStack() {
+            const stack = new THREE.Group();
+            
+            // Stack of 3-5 coins
+            const coinCount = 3 + Math.floor(Math.random() * 3);
+            for(let i = 0; i < coinCount; i++) {
+                const coinGeo = new THREE.CylinderGeometry(0.3, 0.3, 0.1, 16);
+                const coinMat = new THREE.MeshStandardMaterial({
+                    color: 0xFFD700,
+                    metalness: 1,
+                    roughness: 0.1,
+                    emissive: 0xFFD700,
+                    emissiveIntensity: 0.3
+                });
+                const coin = new THREE.Mesh(coinGeo, coinMat);
+                coin.position.y = i * 0.12;
+                coin.rotation.y = Math.random() * Math.PI;
+                stack.add(coin);
+            }
+            
+            return stack;
+        }
+        
+        function createBrainrotEntity(spawnerPos, type) {
+            const entity = new THREE.Group();
+            
+            // Different brainrot types
+            let color = 0xff00ff;
+            let size = 1;
+            let speed = 0.02;
+            let value = 1;
+            
+            switch(type) {
+                case 'spawner1':
+                    color = 0xff6600;
+                    size = 0.8;
+                    value = 1;
+                    break;
+                case 'spawner2':
+                    color = 0xff0066;
+                    size = 1.2;
+                    speed = 0.03;
+                    value = 5;
+                    break;
+                case 'spawner3':
+                    color = 0x9900ff;
+                    size = 1.5;
+                    speed = 0.04;
+                    value = 10;
+                    break;
+                case 'spawner4':
+                    color = 0xFFD700;
+                    size = 2;
+                    speed = 0.05;
+                    value = 50;
+                    break;
+            }
+            
+            // Main body (glowing sphere)
+            const bodyGeo = new THREE.SphereGeometry(size, 16, 16);
+            const bodyMat = new THREE.MeshStandardMaterial({
+                color: color,
+                emissive: color,
+                emissiveIntensity: 0.8,
+                metalness: 0.5,
+                roughness: 0.3
+            });
+            const body = new THREE.Mesh(bodyGeo, bodyMat);
+            entity.add(body);
+            
+            // Orbiting particles
+            for(let i = 0; i < 5; i++) {
+                const particleGeo = new THREE.SphereGeometry(size * 0.2, 8, 8);
+                const particleMat = new THREE.MeshStandardMaterial({
+                    color: color,
+                    emissive: color,
+                    emissiveIntensity: 1
+                });
+                const particle = new THREE.Mesh(particleGeo, particleMat);
+                const angle = (i / 5) * Math.PI * 2;
+                particle.position.x = Math.cos(angle) * size * 1.5;
+                particle.position.z = Math.sin(angle) * size * 1.5;
+                particle.userData.angle = angle;
+                entity.add(particle);
+            }
+            
+            entity.position.copy(spawnerPos);
+            entity.position.y = 2;
+            entity.userData.isBrainrot = true;
+            entity.userData.value = value;
+            entity.userData.speed = speed;
+            entity.userData.birthTime = Date.now();
+            
+            return entity;
+        }
+        
+        function updateSpawnerUI() {
+            document.getElementById('coinCount').textContent = '💰 ' + coinStacks;
+            document.getElementById('livesCount').textContent = '🧠 ' + totalBrainrots;
+        }
+        
+        function createSpawnerShopUI() {
+            const shopUI = document.createElement('div');
+            shopUI.id = 'spawnerShopUI';
+            shopUI.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                padding: 40px;
+                border-radius: 30px;
+                border: 5px solid gold;
+                z-index: 3000;
+                display: none;
+                min-width: 600px;
+                box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+            `;
+            
+            shopUI.innerHTML = `
+                <h2 style="color: white; text-align: center; margin-bottom: 20px; font-size: 36px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">🧠 SPAWNER UPGRADE 🧠</h2>
+                <div style="color: white; margin-bottom: 30px; text-align: center; font-size: 24px;">
+                    <p>💰 Your Coins: <span id="spawnerMoney" style="color: gold; font-weight: bold;">100</span></p>
+                </div>
+                <div id="spawnerShopContent" style="color: white; font-size: 18px; text-align: center; margin-bottom: 30px;">
+                    Select upgrade...
+                </div>
+                <button onclick="closeSpawnerShop()" style="width: 100%; padding: 15px; background: #ff4444; border: none; border-radius: 15px; color: white; font-weight: bold; cursor: pointer; font-size: 20px;">
+                    Close
+                </button>
+            `;
+            
+            document.body.appendChild(shopUI);
+        }
+        
+        function openSpawnerShop(pedestal) {
+            const shopUI = document.getElementById('spawnerShopUI');
+            const contentDiv = document.getElementById('spawnerShopContent');
+            
+            shopUI.style.display = 'block';
+            document.getElementById('spawnerMoney').textContent = coinStacks;
+            
+            contentDiv.innerHTML = `
+                <h3 style="color: gold; margin-bottom: 20px;">${pedestal.userData.name}</h3>
+                <p style="margin-bottom: 20px;">Cost: <span style="color: gold; font-size: 28px;">${pedestal.userData.cost} coins</span></p>
+                <p style="margin-bottom: 30px; font-size: 16px; opacity: 0.9;">
+                    ${getSpawnerDescription(pedestal.userData.type)}
+                </p>
+                <button onclick="buySpawner('${pedestal.userData.type}', ${pedestal.userData.cost}, ${pedestal.position.x}, ${pedestal.position.y}, ${pedestal.position.z})" 
+                    style="padding: 20px 40px; background: gold; border: none; border-radius: 15px; color: #000; font-weight: bold; cursor: pointer; font-size: 24px;">
+                    💰 BUY NOW
+                </button>
+            `;
+            
+            document.exitPointerLock();
+        }
+        
+        function getSpawnerDescription(type) {
+            const descriptions = {
+                'spawner1': 'Spawns 1 brainrot every 5 seconds (1 coin each)',
+                'spawner2': 'Spawns 1 MEGA brainrot every 4 seconds (5 coins each)',
+                'spawner3': 'Spawns 1 ULTRA brainrot every 3 seconds (10 coins each)',
+                'spawner4': 'Spawns 1 GOLDEN brainrot every 2 seconds (50 coins each)',
+                'collector': 'Automatically collects all coins (+10 coins/second)'
+            };
+            return descriptions[type] || 'Unknown upgrade';
+        }
+        
+        function closeSpawnerShop() {
+            document.getElementById('spawnerShopUI').style.display = 'none';
+        }
+        
+        function buySpawner(type, cost, x, y, z) {
+            if(coinStacks < cost) {
+                alert('❌ NOT ENOUGH COINS! You need ' + cost + ' coins!');
+                return;
+            }
+            
+            coinStacks -= cost;
+            updateSpawnerUI();
+            closeSpawnerShop();
+            
+            if(type === 'collector') {
+                autoCollectors++;
+                coinsPerSecond += 10;
+                alert('✅ AUTO COLLECTOR PURCHASED! +10 coins/second!');
+            } else {
+                // Create spawner
+                const spawner = createSpawnerMachine(x, y + 2, z, type);
+                brainrotSpawners.push(spawner);
+                scene.add(spawner);
+                alert('✅ SPAWNER PURCHASED! Watch the brainrots spawn!');
+            }
+            
+            createCoinStackDisplay();
+        }
+        
+        function createSpawnerMachine(x, y, z, type) {
+            const machine = new THREE.Group();
+            
+            // Get color from type
+            const colors = {
+                'spawner1': 0xff6600,
+                'spawner2': 0xff0066,
+                'spawner3': 0x9900ff,
+                'spawner4': 0xFFD700
+            };
+            const color = colors[type] || 0xff00ff;
+            
+            // Machine base
+            const baseGeo = new THREE.BoxGeometry(2, 3, 2);
+            const baseMat = new THREE.MeshStandardMaterial({
+                color: color,
+                metalness: 0.8,
+                roughness: 0.2,
+                emissive: color,
+                emissiveIntensity: 0.3
+            });
+            const base = new THREE.Mesh(baseGeo, baseMat);
+            machine.add(base);
+            
+            // Spinning top
+            const topGeo = new THREE.ConeGeometry(1.5, 2, 6);
+            const topMat = new THREE.MeshStandardMaterial({
+                color: color,
+                emissive: color,
+                emissiveIntensity: 0.5
+            });
+            const top = new THREE.Mesh(topGeo, topMat);
+            top.position.y = 2.5;
+            machine.add(top);
+            
+            machine.position.set(x, y, z);
+            machine.userData.isSpawner = true;
+            machine.userData.type = type;
+            machine.userData.lastSpawn = Date.now();
+            machine.userData.spawnRate = type === 'spawner4' ? 2000 : type === 'spawner3' ? 3000 : type === 'spawner2' ? 4000 : 5000;
+            
+            return machine;
+        }
+        
+        function updateBrainrotSpawner() {
+            if(!spawnerActive) return;
+            
+            const now = Date.now();
+            
+            // Auto collector passive income
+            if(autoCollectors > 0 && now - lastCoinTime > 1000) {
+                coinStacks += coinsPerSecond;
+                lastCoinTime = now;
+                updateSpawnerUI();
+                createCoinStackDisplay();
+            }
+            
+            // Spawn brainrots from spawners
+            brainrotSpawners.forEach(spawner => {
+                if(now - spawner.userData.lastSpawn > spawner.userData.spawnRate) {
+                    const entity = createBrainrotEntity(spawner.position, spawner.userData.type);
+                    brainrotEntities.push(entity);
+                    scene.add(entity);
+                    spawner.userData.lastSpawn = now;
+                    totalBrainrots++;
+                    updateSpawnerUI();
+                }
+                
+                // Rotate spawner
+                spawner.children[1].rotation.y += 0.02;
+            });
+            
+            // Animate and collect brainrot entities
+            for(let i = brainrotEntities.length - 1; i >= 0; i--) {
+                const entity = brainrotEntities[i];
+                
+                // Float animation
+                entity.position.y = 2 + Math.sin((now - entity.userData.birthTime) * 0.002) * 0.5;
+                
+                // Rotate
+                entity.rotation.y += 0.02;
+                
+                // Orbit particles
+                entity.children.forEach((child, index) => {
+                    if(child.userData.angle !== undefined) {
+                        const newAngle = child.userData.angle + (now * 0.001);
+                        const radius = entity.children[0].geometry.parameters.radius * 1.5;
+                        child.position.x = Math.cos(newAngle) * radius;
+                        child.position.z = Math.sin(newAngle) * radius;
+                        child.position.y = Math.sin(newAngle * 2) * 0.5;
+                    }
+                });
+                
+                // Move towards player slowly
+                const direction = new THREE.Vector3();
+                direction.subVectors(player.position, entity.position);
+                direction.y = 0;
+                direction.normalize();
+                entity.position.add(direction.multiplyScalar(entity.userData.speed));
+                
+                // Check if player collected it
+                const distance = player.position.distanceTo(entity.position);
+                if(distance < 2) {
+                    coinStacks += entity.userData.value;
+                    scene.remove(entity);
+                    brainrotEntities.splice(i, 1);
+                    updateSpawnerUI();
+                    createCoinStackDisplay();
+                }
+            }
+            
+            // Check if player near pedestal
+            platforms.forEach(platform => {
+                if(platform.userData.isPedestal) {
+                    const dist = player.position.distanceTo(platform.position);
+                    if(dist < 5 && keys['KeyE']) {
+                        openSpawnerShop(platform);
+                    }
+                }
+            });
+        }
+
+        function cleanupOldPlatforms() {
+            // Remove platforms that are far behind the player
+            platforms = platforms.filter(p => {
+                if (p.position.z > player.position.z + 30) {
+                    scene.remove(p);
+                    return false;
+                }
+                return true;
+            });
+            
+            // Remove old coins
+            coins = coins.filter(c => {
+                if (c.position.z > player.position.z + 30) {
+                    scene.remove(c);
+                    return false;
+                }
+                return true;
+            });
+        }
+
+        function animate() {
+            if (isDead || !scene) return;
+            requestAnimationFrame(animate);
+
+            let moveX = 0;
+            let moveZ = 0;
+            
+            // Keyboard
+            if (keys['KeyW']) moveZ -= 1; 
+            if (keys['KeyS']) moveZ += 1;
+            if (keys['KeyA']) moveX -= 1;
+            if (keys['KeyD']) moveX += 1;
+
+            // Gamepad - Get fresh gamepad state every frame
+            const gamepads = navigator.getGamepads();
+            let gamepad = null;
+            
+            // Find the first connected gamepad
+            for (let i = 0; i < gamepads.length; i++) {
+                if (gamepads[i]) {
+                    gamepad = gamepads[i];
+                    if (!gamepadConnected) {
+                        gamepadConnected = true;
+                        console.log('🎮 Controller detected:', gamepad.id);
+                    }
+                    break;
+                }
+            }
+            
+            if (gamepad) {
+                // Show debug info
+                const debugEl = document.getElementById('controllerDebug');
+                if (debugEl && document.getElementById('gameCanvas').style.display === 'block') {
+                    debugEl.style.display = 'block';
+                    document.getElementById('debugStatus').textContent = 'Connected: ' + gamepad.id.substring(0, 30);
+                    document.getElementById('debugLeftStick').textContent = gamepad.axes[0].toFixed(2) + ', ' + gamepad.axes[1].toFixed(2);
+                    document.getElementById('debugRightStick').textContent = gamepad.axes[2].toFixed(2) + ', ' + gamepad.axes[3].toFixed(2);
+                    
+                    const pressedButtons = [];
+                    gamepad.buttons.forEach((btn, i) => {
+                        if (btn.pressed) pressedButtons.push(i);
+                    });
+                    document.getElementById('debugButtons').textContent = pressedButtons.length > 0 ? pressedButtons.join(', ') : 'None';
+                }
+                
+                // Left stick movement (axes 0 and 1) - FIXED WITH PROPER DEADZONES
+                const deadzone = 0.15; // Smaller deadzone for better response
+                
+                // Get raw axis values
+                let stickX = gamepad.axes[0];
+                let stickY = gamepad.axes[1];
+                
+                // Apply deadzone
+                if (Math.abs(stickX) < deadzone) stickX = 0;
+                if (Math.abs(stickY) < deadzone) stickY = 0;
+                
+                // APPLY MOVEMENT - This was the issue!
+                if (stickX !== 0 || stickY !== 0) {
+                    moveX += stickX;
+                    moveZ += stickY;
+                    
+                    // Debug log every 30 frames
+                    if (Math.floor(Date.now() / 100) % 30 === 0) {
+                        console.log('🕹️ Stick input:', stickX.toFixed(2), stickY.toFixed(2), '→ Move:', moveX.toFixed(2), moveZ.toFixed(2));
+                    }
+                }
+                
+                // Right stick camera control (axes 2 and 3)
+                const lookDeadzone = 0.25;
+                let lookX = Math.abs(gamepad.axes[2]) > lookDeadzone ? gamepad.axes[2] : 0;
+                let lookY = Math.abs(gamepad.axes[3]) > lookDeadzone ? gamepad.axes[3] : 0;
+                
+                if (lookX !== 0) {
+                    const sign = lookX > 0 ? 1 : -1;
+                    lookX = sign * Math.pow(Math.abs(lookX), 1.5);
+                    cameraAngle -= lookX * 0.04;
+                }
+                if (lookY !== 0) {
+                    const sign = lookY > 0 ? 1 : -1;
+                    lookY = sign * Math.pow(Math.abs(lookY), 1.5);
+                    cameraVerticalAngle -= lookY * 0.04;
+                    cameraVerticalAngle = Math.max(-Math.PI/3, Math.min(Math.PI/3, cameraVerticalAngle));
+                }
+                
+                // A button (button 0) or X button (button 2) for jump
+                if ((gamepad.buttons[0] && gamepad.buttons[0].pressed) || 
+                    (gamepad.buttons[2] && gamepad.buttons[2].pressed)) {
+                    if (isGrounded) {
+                        velocity.y = 0.3;
+                    }
+                }
+                
+                // Back/Select button (button 8) to exit game
+                if (gamepad.buttons[8] && gamepad.buttons[8].pressed) {
+                    closeGame();
+                }
+            }
+
+            // Movement with collision prediction
+            const move = new THREE.Vector3(moveX, 0, moveZ);
+            if (move.length() > 0) {
+                move.normalize();
+                move.applyAxisAngle(new THREE.Vector3(0, 1, 0), cameraAngle);
+                
+                // Try to move and check for collisions
+                const newPos = player.position.clone().add(move.multiplyScalar(0.15));
+                let canMove = true;
+                
+                // Check collision with all platforms
+                platforms.forEach(p => {
+                    const box = new THREE.Box3().setFromObject(p);
+                    // Create player bounding box (slightly smaller than visual)
+                    const playerBox = new THREE.Box3(
+                        new THREE.Vector3(newPos.x - 0.7, newPos.y - 2, newPos.z - 0.7),
+                        new THREE.Vector3(newPos.x + 0.7, newPos.y + 1, newPos.z + 0.7)
+                    );
+                    
+                    // If boxes intersect, prevent movement
+                    if (playerBox.intersectsBox(box)) {
+                        canMove = false;
+                    }
+                });
+                
+                // Only move if no collision
+                if (canMove) {
+                    player.position.copy(newPos);
+                    player.rotation.y = Math.atan2(move.x, move.z);
+                }
+            }
+
+            // Physics
+            velocity.y -= 0.015;
+            player.position.y += velocity.y;
+
+            // Moving platforms
+            platforms.forEach(p => {
+                if (p.userData.moveSpeed) {
+                    p.position.y = p.userData.startY + Math.sin(Date.now() * p.userData.moveSpeed) * 3;
+                }
+            });
+
+            // Coin collection
+            for (let i = coins.length - 1; i >= 0; i--) {
+                const coin = coins[i];
+                coin.rotation.y += 0.05;
+                const distance = player.position.distanceTo(coin.position);
+                if (distance < 1.5) {
+                    scene.remove(coin);
+                    coins.splice(i, 1);
+                    totalCoins++;
+                    document.getElementById('coinCount').textContent = totalCoins;
+                    if (currentUser) {
+                        currentUser.coins = (currentUser.coins || 0) + 1;
+                        document.getElementById('totalCoins').textContent = currentUser.coins;
+                        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    }
+                }
+            }
+
+            // Ground collision (vertical only)
+            isGrounded = false;
+            platforms.forEach(p => {
+                const box = new THREE.Box3().setFromObject(p);
+                const playerBottom = player.position.y - 2;
+                
+                // Check if player is above this platform horizontally
+                if (player.position.x > box.min.x - 0.7 && player.position.x < box.max.x + 0.7 &&
+                    player.position.z > box.min.z - 0.7 && player.position.z < box.max.z + 0.7) {
+                    
+                    // Check vertical collision
+                    if (playerBottom <= box.max.y && playerBottom >= box.min.y - 0.5 && velocity.y <= 0) {
+                        player.position.y = box.max.y + 2;
+                        velocity.y = 0;
+                        isGrounded = true;
+                    }
+                }
+            });
+
+            // INFINITE GENERATION - Generate new platforms as player moves forward
+            if (player.position.z < lastPlatformZ + 40) {
+                generateNextPlatform();
+            }
+            
+            // Cleanup old platforms behind player
+            cleanupOldPlatforms();
+            
+            // BRAINROT HORROR GAME UPDATE
+            if(skibidiEnemies.length > 0) {
+                updateBrainrotGame();
+            }
+            
+            // SKIBIDI STEAL GAME UPDATE
+            if(stealGameActive) {
+                updateStealGame();
+            }
+            
+            // BRAINROT SPAWNER UPDATE
+            if(spawnerActive) {
+                updateBrainrotSpawner();
+            }
+
+            if (keys['Space'] && isGrounded) velocity.y = 0.3;
+
+            // Death
+            if (player.position.y < -15) {
+                isDead = true;
+                document.getElementById('deathScreen').style.display = 'flex';
+                document.exitPointerLock();
+            }
+
+            // Camera
+            const camDistance = 10;
+            const camHeight = 5 + Math.sin(cameraVerticalAngle) * 5;
+            const camBackDistance = Math.cos(cameraVerticalAngle) * camDistance;
+            camera.position.set(
+                player.position.x + Math.sin(cameraAngle) * camBackDistance,
+                player.position.y + camHeight,
+                player.position.z + Math.cos(cameraAngle) * camBackDistance
+            );
+            camera.lookAt(player.position);
+            renderer.render(scene, camera);
+        }
+
+        function respawnPlayer() {
+            isDead = false;
+            document.getElementById('deathScreen').style.display = 'none';
+            loadLevel();
+            animate();
+        }
+
+        function closeGame() {
+            location.reload();
+        }
+        
+        function showHome() { 
+            location.reload(); 
+        }
+        
+        // ===== STUDIO FUNCTIONS =====
+        function openStudio() {
+            if (!currentUser) {
+                alert('⚠️ Please login to access Game Studio!');
+                showAuth('login');
+                return;
+            }
+            document.getElementById('studioModal').style.display = 'block';
+            loadMyGames();
+        }
+        
+        function closeStudio() {
+            document.getElementById('studioModal').style.display = 'none';
+        }
+        
+        function publishGame() {
+            const gameName = document.getElementById('gameName').value.trim();
+            const emoji = document.getElementById('gameEmoji').value.trim();
+            const creator = document.getElementById('creatorName').value.trim();
+            const theme = document.getElementById('gameTheme').value;
+            const difficulty = document.getElementById('gameDifficulty').value;
+            
+            if (!gameName || !emoji || !creator) {
+                alert('⚠️ Please fill in all fields!');
+                return;
+            }
+            
+            if (gameName.length < 3) {
+                alert('⚠️ Game name must be at least 3 characters!');
+                return;
+            }
+            
+            const newGame = {
+                id: Date.now(),
+                name: gameName,
+                emoji: emoji,
+                creator: creator,
+                theme: theme,
+                difficulty: difficulty,
+                players: '0',
+                likes: '0%',
+                createdBy: currentUser.username,
+                createdAt: new Date().toISOString()
+            };
+            
+            // Add to user's games
+            if (!currentUser.gamesCreated) {
+                currentUser.gamesCreated = [];
+            }
+            currentUser.gamesCreated.push(newGame);
+            
+            // Update localStorage
+            const users = JSON.parse(localStorage.getItem('users') || '{}');
+            users[currentUser.username] = currentUser;
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Add to game library
+            gameLibrary.push(newGame);
+            
+            // Update trophies
+            currentUser.trophies = (currentUser.trophies || 0) + 1;
+            document.getElementById('totalTrophies').textContent = currentUser.trophies;
+            
+            alert('🎉 Game published successfully!');
+            
+            // Clear form
+            document.getElementById('gameName').value = '';
+            document.getElementById('gameEmoji').value = '';
+            document.getElementById('creatorName').value = '';
+            
+            // Reload games
+            loadAllGames();
+            loadMyGames();
+        }
+        
+        function loadMyGames() {
+            if (!currentUser || !currentUser.gamesCreated || currentUser.gamesCreated.length === 0) {
+                document.getElementById('myGames').innerHTML = '<p style="color: #aaa;">No games published yet. Create your first game above!</p>';
+                return;
+            }
+            
+            const container = document.getElementById('myGames');
+            container.innerHTML = '';
+            
+            currentUser.gamesCreated.forEach((game, index) => {
+                const card = document.createElement('div');
+                card.style.cssText = 'background: #242424; border-radius: 10px; padding: 15px; position: relative;';
+                card.innerHTML = `
+                    <div style="font-size: 48px; text-align: center; margin-bottom: 10px;">${game.emoji}</div>
+                    <div style="font-weight: bold; margin-bottom: 5px;">${game.name}</div>
+                    <div style="font-size: 12px; color: #aaa; margin-bottom: 5px;">By ${game.creator}</div>
+                    <div style="font-size: 11px; color: #888;">Theme: ${game.theme}</div>
+                    <div style="font-size: 11px; color: #888;">Difficulty: ${game.difficulty}</div>
+                    <button onclick="deleteGame(${index})" style="width: 100%; margin-top: 10px; padding: 8px; background: #ff4444; border: none; color: white; border-radius: 5px; cursor: pointer; font-size: 12px;">🗑️ Delete</button>
+                `;
+                container.appendChild(card);
+            });
+        }
+        
+        function deleteGame(index) {
+            if (!confirm('Are you sure you want to delete this game?')) return;
+            
+            currentUser.gamesCreated.splice(index, 1);
+            
+            // Update localStorage
+            const users = JSON.parse(localStorage.getItem('users') || '{}');
+            users[currentUser.username] = currentUser;
+            localStorage.setItem('users', JSON.stringify(users));
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            loadMyGames();
+            loadAllGames();
+            alert('🗑️ Game deleted successfully!');
+        }
+    </script>
 </body>
 </html>
+
